@@ -22,15 +22,19 @@ def docs_fake_christopher_diaz(return_chunks=True):
     """
     Returns 6 fake facts, fake metadata, and then QA about them.
 
-    from api_llm_rag_data import docs_fake_christopher_diaz
+    from rag_qna_christopher_diaz import docs_fake_christopher_diaz
     chunks, metadata, qna = docs_fake_christopher_diaz()
 
-    Conversion:
 
+    
+    # Conversion to LangChain Document:
+    from langchain_core.documents import Document
+    from rag_qna_christopher_diaz import docs_fake_christopher_diaz
     chunks, metadata, qna = docs_fake_christopher_diaz()
-    docs = []
+    documents = []
     for chunk in chunks:
-        docs.append(chunk['content'])
+        documents.append(Document(page_content=chunk['content'], metadata={'Header 1': 'Biography of Christopher Diaz', "Header 2": chunk['section']}))
+    # documents is a LangChain document
 
     """
 
@@ -112,13 +116,14 @@ def your_llm_rag_system(query:str=None):
 if __name__ == '__main__':
     
 
-    docs, metadata, qna = docs_fake_christopher_diaz()
-
-    # This provides the text
-    text = ""
-    for doc in docs:
-        text += doc['content'] + "\n"
-    print(text)
+    # Conversion to LangChain Document:
+    from langchain_core.documents import Document
+    from rag_qna_christopher_diaz import docs_fake_christopher_diaz
+    chunks, metadata, qna = docs_fake_christopher_diaz()
+    documents = []
+    for chunk in chunks:
+        documents.append(Document(page_content=chunk['content'], metadata={'Header 1': 'Biography of Christopher Diaz', "Header 2": chunk['section']}))
+    # documents is a LangChain document
 
 
     # For testing, here is the questions & answers (ground truth)
